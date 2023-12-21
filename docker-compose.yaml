@@ -1,0 +1,13 @@
+version: "3.9"
+services: 
+  db: 
+    image: postgres:14.0-alpine
+    container_name: db_marijuana
+    volumes: 
+      - marijuana_db_volume:/var/lib/postgresql/data
+    env_file:
+      - .env
+    ports:
+      - "5435:5432"
+volumes:
+  marijuana_db_volume: 
