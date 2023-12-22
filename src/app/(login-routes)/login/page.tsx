@@ -5,7 +5,7 @@ import {
     Button,
     Box,
     Typography, 
-    FormControl
+    AlertProps,
 } from '@mui/material';
 import { 
     boxFormItems,
@@ -15,11 +15,28 @@ import {
 import { signIn } from 'next-auth/react';
 import { SyntheticEvent, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import NotificationForm from '@/app/components/notificationForm';
 
 export default function Login() {
-    const [email, setEmail] = useState<String>('')
-    const [password, setPassword] = useState<String>('')
+    const [severity, setSeverity] = useState<AlertProps['severity']>('warning')
+    const [open, setOpen] = useState<boolean>(false);
+    const [email, setEmail] = useState<string>('')
+    const [password, setPassword] = useState<string>('')
+    const [message, setMessage] = useState<string>('')
     const router = useRouter()
+
+    const callNotification = (message: string, typeSeverity: AlertProps['severity']) => {
+        setMessage(message)
+        setSeverity(typeSeverity);
+        setOpen(true);
+    };
+
+    const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
+        if (reason === 'clickaway') {
+          return;
+        }
+        setOpen(false);
+    };
 
     async function onSubmit(event: SyntheticEvent) {
         event.preventDefault();
@@ -28,16 +45,25 @@ export default function Login() {
             password,
             redirect: false
         });
+
         if (result?.error) {
-            console.log(result);
+            callNotification(
+                "Invalid credentials!",
+                "warning"
+            );
             return;
         }
-        console.log("tudo certo", result)
         router.replace('/profile');
     }
 
     return (
         <>
+        <NotificationForm 
+            message={message}
+            severity={severity}
+            open={open}
+            handleClose={handleClose}
+        />
         <Box style={containerFormLogin}>
             <form onSubmit={onSubmit}>
                 <Box style={boxFormItems}>

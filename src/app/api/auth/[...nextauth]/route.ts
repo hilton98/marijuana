@@ -11,7 +11,7 @@ const nextAuthOptions: NextAuthOptions = {
 			},
 
 			async authorize(credentials, req) {
-				const response = await fetch('http://localhost:3000/api/authentication', {
+				const response = await fetch('http://localhost:3000/api/authentication/', {
 					method: 'POST',
 					headers: {
 						'Content-type': 'application/json'
@@ -21,10 +21,11 @@ const nextAuthOptions: NextAuthOptions = {
 						password: credentials?.password
 					})
 				})
-				const user = await response.json()
-				if (user && response.ok)
-					return user
-				return null
+				const responseJSON = await response.json();
+				if (response.ok) {
+					return responseJSON
+				}
+				return null;
 			},
 		})
 	],

@@ -1,4 +1,5 @@
 import { PrismaClient, User } from '@prisma/client'
+import { NextResponse } from 'next/server'
 const jwt = require("jsonwebtoken")
 const bcrypt = require("bcrypt")
 const prisma = new PrismaClient()
@@ -12,10 +13,10 @@ export async function POST(req: Request) {
         const isValidPassword = bcrypt.compareSync(passwordReceived, user?.password)
         if (isValidPassword){
             const token = await generateToken(user)
-            return Response.json({"token": token})
+            return NextResponse.json({accessToken: token}, {status: 200});
         }
     }
-    throw "erro"
+    return NextResponse.json({error: 'Invalid credentials'}, {status: 401});
 }
 
 async function getUserByEmail(email: string){
