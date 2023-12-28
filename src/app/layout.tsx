@@ -2,6 +2,10 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
 import NextAuthSessionProvider from '@/providers/session'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Box from '@mui/material/Box'
+import { relative } from 'path'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -14,13 +18,23 @@ export default function RootLayout({
   children,
 }: {
   children: React.ReactNode
-}) {
+}) 
+{
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextAuthSessionProvider>
-          {children}
-        </NextAuthSessionProvider>
+      <Box 
+        sx={{
+          position: "relative",
+          minHeight: "100vh"
+        }}
+      >
+        <Header/>
+          <NextAuthSessionProvider>
+            {children}
+          </NextAuthSessionProvider>
+        <Footer/>
+      </Box>  
       </body>
     </html>
   )
