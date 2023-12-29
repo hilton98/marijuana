@@ -8,53 +8,10 @@ import Container from '@mui/material/Container';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import createTheme from '@mui/material/styles/createTheme';
 import UserMenu from './userMenu';
-import { useRouter } from "next/navigation";
-import { signOut } from "next-auth/react";
+
 
 
 export default function Header() {
-  const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
-  const router = useRouter();
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-      setAnchorElNav(event.currentTarget);
-  };
-  
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  async function logout(){
-    await signOut({
-        redirect: false
-    });
-    router.replace('/login')
-  }
-  
-  const handleCloseUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    const usersActionChoiced = event.currentTarget.getAttribute("value");
-    switch (usersActionChoiced) {
-      case settings[0]:
-        console.log(settings[0]);
-        break;
-      case settings[1]:
-        console.log(settings[1]);
-        break;
-      case settings[2]:
-        console.log(settings[2]);
-        break;
-      case settings[3]:
-        logout()
-        break;
-      default:
-        console.log("No definition!")
-    }
-    setAnchorElUser(null);
-  };
-
-
   const darkTheme = createTheme({
     palette: {
       mode: 'dark',
@@ -95,14 +52,7 @@ export default function Header() {
                     </g>
                 </svg> 
               </Typography>
-              <UserMenu 
-                    anchorElNav={anchorElNav}
-                    anchorElUser={anchorElUser}
-                    handleOpenNavMenu={handleOpenNavMenu}
-                    handleOpenUserMenu={handleOpenUserMenu}
-                    handleCloseUserMenu={handleCloseUserMenu}
-                    settings={settings}
-              />
+              <UserMenu/>
             </Toolbar>
         </Container>
         </AppBar>

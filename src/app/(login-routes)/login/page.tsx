@@ -1,21 +1,16 @@
 'use client'
 
-import { 
-    TextField,
-    Button,
-    Box,
-    Typography, 
-    AlertProps,
-} from '@mui/material';
-import { 
-    boxFormItems,
-    containerFormLogin,
-    itemsFormLogin 
-} from './styles';
-import { signIn } from 'next-auth/react';
+
+import { boxFormItems, containerFormLogin, itemsFormLogin } from './styles';
 import { SyntheticEvent, useState } from 'react';
+import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import NotificationForm from '@/app/components/notificationForm';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+import Button from '@mui/material/Button';
+import { AlertProps } from '@mui/material/Alert';
 
 export default function Login() {
     const [severity, setSeverity] = useState<AlertProps['severity']>('warning')

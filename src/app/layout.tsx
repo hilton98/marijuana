@@ -29,11 +29,11 @@ export default function RootLayout({
           minHeight: "100vh"
         }}
       >
-        <Header/>
-          <NextAuthSessionProvider>
+        <NextAuthSessionProvider>
+          <Header/>
             {children}
-          </NextAuthSessionProvider>
-        <Footer/>
+          <Footer/>
+        </NextAuthSessionProvider>
       </Box>  
       </body>
     </html>
