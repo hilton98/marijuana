@@ -37,12 +37,6 @@ export default function UserMenu() {
           console.log(settings[0]);
           break;
         case settings[1]:
-          console.log(settings[1]);
-          break;
-        case settings[2]:
-          console.log(settings[2]);
-          break;
-        case settings[3]:
           logout()
           break;
         default:
